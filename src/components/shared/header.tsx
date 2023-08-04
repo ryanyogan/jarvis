@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { auth } from "../../../auth";
-import { Button, buttonVariants } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import { IconGitHub, IconNextChat, IconSeparator } from "../ui/icons";
+import LoginButton from "./login-button";
 import UserMenu from "./user-menu";
 
 export default async function Header() {
@@ -21,9 +22,7 @@ export default async function Header() {
           {session?.user ? (
             <UserMenu user={session.user} />
           ) : (
-            <Button variant="link" asChild className="-ml-2">
-              <Link href="/sign-in?callbackUrl=/">Login</Link>
-            </Button>
+            <LoginButton text="Login" />
           )}
         </div>
       </div>
