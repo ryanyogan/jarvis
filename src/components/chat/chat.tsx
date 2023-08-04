@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { ChatList } from "./chat-list";
 import ChatPanel from "./chat-panel";
+import { ChatScrollAnchor } from "./chat-scroll-anchor";
 import EmptyScreen from "./empty-screen";
 
 const IS_PREVIEW = process.env.VERCEL_ENV === "preview";
@@ -46,7 +47,10 @@ export default function Chat({ id, initialMessages, className }: ChatProps) {
     <>
       <div className={cn("pb-[200px] pt-4 md:pt-10", className)}>
         {messages.length ? (
-          <ChatList messages={messages} />
+          <>
+            <ChatList messages={messages} />
+            <ChatScrollAnchor trackVisibility={isLoading} />
+          </>
         ) : (
           <EmptyScreen setInput={setInput} />
         )}
