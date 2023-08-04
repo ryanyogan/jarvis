@@ -4,16 +4,24 @@ import { IconArrowRight } from "../ui/icons";
 
 const exampleMessages = [
   {
-    heading: "Explain technical concepts",
-    message: `What is a "serverless function"?`,
+    heading: "Find a good movie",
+    message: `Help me find 3 movies to watch, please select each movie with a high rating, of either Comedy, Action, Drama or Thriller made from 1990 to 2023 in the United States`,
   },
   {
-    heading: "Summarize an article",
-    message: "Summarize the following article for a 2nd grader: \n",
+    heading: "Check out a new series",
+    message: `Help me find a 3 streaming shows to watch, please select each show from either Netflix, Hulu, Disney+, HBO or Apple that is widely liked, preference to shows that already have a season out.`,
+  },
+  {
+    heading: "What sounds good for dinner",
+    message: `Please help me with dinner, a family of four, create some fun in our lives with a new meal idea.  Pleae either include highly-detailed step by step instructions for the receipe, including purchasing of materials`,
+  },
+  {
+    heading: "What to do today",
+    message: `I live in St. Louis, MO, we have two young boys, help us find something awesome to do today!`,
   },
   {
     heading: "Draft an email",
-    message: `Draft an email to my boss about the following: \n`,
+    message: `Draft an email to my boss about the following: \nI Quit!`,
   },
 ];
 
