@@ -4,7 +4,7 @@ import Google from "next-auth/providers/google";
 declare module "next-auth" {
   interface Session {
     user: {
-      id: string;
+      sub: string;
     } & DefaultSession["user"];
   }
 }
@@ -24,7 +24,7 @@ export const {
   callbacks: {
     jwt({ token, profile }) {
       if (profile) {
-        token.id = profile.id;
+        token.id = profile.sub;
         token.image = profile.picture;
       }
       return token;

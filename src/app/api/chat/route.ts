@@ -14,9 +14,9 @@ const openai = new OpenAIApi(config);
 export async function POST(req: Request) {
   const json = await req.json();
   const { messages, previewToken } = json;
-  const user = (await auth())?.user;
+  const userId = (await auth())?.user.sub;
 
-  if (!user) {
+  if (!userId) {
     return new Response("Unauthorized", {
       status: 401,
     });
