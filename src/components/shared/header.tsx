@@ -22,7 +22,7 @@ export default async function Header() {
           {session?.user ? (
             <UserMenu user={session.user} />
           ) : (
-            <LoginButton text="Login" />
+            <LoginButton text="Login with Google" />
           )}
         </div>
       </div>

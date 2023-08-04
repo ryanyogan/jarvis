@@ -3,8 +3,9 @@
 import { cn } from "@/lib/utils";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { BiLogoGoogle } from "react-icons/bi";
 import { Button, ButtonProps } from "../ui/button";
-import { IconGitHub, IconSpinner } from "../ui/icons";
+import { IconSpinner } from "../ui/icons";
 
 interface LoginButtonProps extends ButtonProps {
   showGithubIcon?: boolean;
@@ -12,7 +13,7 @@ interface LoginButtonProps extends ButtonProps {
 }
 
 export default function LoginButton({
-  text = "Login with GitHub",
+  text = "Login with Google",
   showGithubIcon = true,
   className,
   ...props
@@ -25,7 +26,7 @@ export default function LoginButton({
       onClick={() => {
         setIsLoading(true);
 
-        signIn("github", { callbackUrl: "/" });
+        signIn("google", { callbackUrl: "/" });
       }}
       disabled={isLoading}
       className={cn(className)}
@@ -34,7 +35,7 @@ export default function LoginButton({
       {isLoading ? (
         <IconSpinner className="mr-2 animate-spin" />
       ) : showGithubIcon ? (
-        <IconGitHub className="mr-2" />
+        <BiLogoGoogle className="mr-2" />
       ) : null}
       {text}
     </Button>

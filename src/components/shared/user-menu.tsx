@@ -30,8 +30,10 @@ export default function UserMenu({ user }: UserMenuProps) {
           <Button variant="ghost" className="pl-0">
             {user?.image ? (
               <Image
+                width={60}
+                height={60}
                 className="w-6 h-6 transition-opacity duration-300 rounded-full select-none ring-1 ring-zinc-100/10 hover:opacity-80"
-                src={user?.image ? `${user.image}s=60` : ""}
+                src={user?.image || ""}
                 alt={user.name ?? "Avatar"}
               />
             ) : (
