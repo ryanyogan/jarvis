@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Suspense } from "react";
 import { auth } from "../../../auth";
 import { Sidebar } from "../sidebar/sidebar";
 import { SidebarFooter } from "../sidebar/sidebar-footer";
+import { SidebarList } from "../sidebar/sidebar-list";
 import { buttonVariants } from "../ui/button";
 import { IconGitHub, IconNextChat, IconSeparator } from "../ui/icons";
 import LoginButton from "./login-button";
@@ -17,7 +19,9 @@ export default async function Header() {
       <div className="flex items-center">
         {session?.user ? (
           <Sidebar>
-            <div className="flex-1" />
+            <Suspense fallback={<div className="flex-1 overflow-auto" />}>
+              <SidebarList userId={session?.user?.sub} />
+            </Suspense>
             <SidebarFooter>
               <ThemeToggle />
             </SidebarFooter>
