@@ -1,15 +1,17 @@
 import { kv } from "@vercel/kv";
-import { OpenAIStream, StreamingTextResponse, nanoid } from "ai";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
+
+import { nanoid } from "@/lib/utils";
 import { auth } from "../../../../auth";
 
 export const runtime = "edge";
 
-const config = new Configuration({
+const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(config);
+const openai = new OpenAIApi(configuration);
 
 export async function POST(req: Request) {
   const json = await req.json();
@@ -23,7 +25,7 @@ export async function POST(req: Request) {
   }
 
   if (previewToken) {
-    config.apiKey = previewToken;
+    configuration.apiKey = previewToken;
   }
 
   const res = await openai.createChatCompletion({
@@ -53,7 +55,6 @@ export async function POST(req: Request) {
           },
         ],
       };
-
       await kv.hmset(`chat:${id}`, payload);
       await kv.zadd(`user:chat:${userId}`, {
         score: createdAt,

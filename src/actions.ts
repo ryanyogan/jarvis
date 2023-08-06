@@ -1,9 +1,11 @@
 "use server";
+
 import { kv } from "@vercel/kv";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
+import { type Chat } from "@/lib/types";
 import { auth } from "../auth";
-import { Chat } from "./lib/types";
 
 export async function getChats(userId?: string | null) {
   if (!userId) {
@@ -23,7 +25,7 @@ export async function getChats(userId?: string | null) {
     const results = await pipeline.exec();
 
     return results as Chat[];
-  } catch (_error) {
+  } catch (error) {
     return [];
   }
 }
@@ -31,9 +33,9 @@ export async function getChats(userId?: string | null) {
 export async function getChat(id: string, userId: string) {
   const chat = await kv.hgetall<Chat>(`chat:${id}`);
 
-  if (!chat || (userId && chat.userId !== userId)) {
-    return null;
-  }
+  // if (!chat || (userId && chat.userId) !== userId) {
+  //   return null;
+  // }
 
   return chat;
 }
@@ -48,6 +50,7 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
   }
 
   const uid = await kv.hget<string>(`chat:${id}`, "userId");
+
   if (uid !== session?.user?.sub) {
     return {
       error: "Unauthorized",
@@ -78,7 +81,6 @@ export async function clearChats() {
   if (!chats.length) {
     return redirect("/");
   }
-
   const pipeline = kv.pipeline();
 
   for (const chat of chats) {

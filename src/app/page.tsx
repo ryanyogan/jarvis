@@ -1,5 +1,5 @@
 import Chat from "@/components/chat/chat";
-import { nanoid } from "ai";
+import { nanoid } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import { auth } from "../../auth";
 
