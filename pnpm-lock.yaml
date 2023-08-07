@@ -111,9 +111,6 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.0.7
     version: 18.0.7
-  '@types/react-icons':
-    specifier: ^3.0.0
-    version: 3.0.0(react@18.2.0)
   '@types/react-syntax-highlighter':
     specifier: ^15.5.6
     version: 15.5.6
@@ -1230,15 +1227,6 @@ packages:
     resolution: {integrity: sha512-HaXc+BbqAZE1RdsK3tC8SbkFy6UL2xF76lT9rQs5JkPrJg3rWA3Ou/Lhw3YJQzEDkBpmJ79nBsfnd05WrBd2QQ==}
     dependencies:
       '@types/react': 18.0.22
-
-  /@types/react-icons@3.0.0(react@18.2.0):
-    resolution: {integrity: sha512-Vefs6LkLqF61vfV7AiAqls+vpR94q67gunhMueDznG+msAkrYgRxl7gYjNem/kZ+as2l2mNChmF1jRZzzQQtMg==}
-    deprecated: This is a stub types definition. react-icons provides its own type definitions, so you do not need this installed.
-    dependencies:
-      react-icons: 4.10.1(react@18.2.0)
-    transitivePeerDependencies:
-      - react
-    dev: true
 
   /@types/react-syntax-highlighter@15.5.6:
     resolution: {integrity: sha512-i7wFuLbIAFlabTeD2I1cLjEOrG/xdMa/rpx2zwzAoGHuXJDhSqp9BSfDlMHSh9JSuNfxHk9eEmMX6D55GiyjGg==}
@@ -4232,6 +4220,7 @@ packages:
       react: '*'
     dependencies:
       react: 18.2.0
+    dev: false
 
   /react-intersection-observer@9.4.4(react@18.2.0):
     resolution: {integrity: sha512-KQr8ezJscRSQZR0/TjogG4mZttCzdPZj8fhDzAK+xrPYOVvFjabRNy+4EY3UhS3fJaJyIedGjA8y4yKX+nc08w==}
@@ -4359,6 +4348,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
