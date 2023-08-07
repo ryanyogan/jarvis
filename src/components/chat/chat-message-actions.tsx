@@ -1,3 +1,5 @@
+"use client";
+
 import { useCopyToClipboard } from "@/lib/hooks/use-copy-to-clipboard";
 import { cn } from "@/lib/utils";
 import { Message } from "ai";

@@ -1,18 +1,23 @@
 "use client";
 
+import { shareChat } from "@/actions";
 import { Chat, ServerActionResult } from "@/lib/types";
+import { cn, formatDate } from "@/lib/utils";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
+import { badgeVariants } from "../ui/badge";
 import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { IconShare } from "../ui/icons";
+import { IconShare, IconSpinner, IconTrash, IconUsers } from "../ui/icons";
 import { Tooltip, TooltipTrigger } from "../ui/tooltip";
 
 interface SidebarActionProps {
@@ -65,6 +70,19 @@ export function SidebarActions({ chat, removeChat }: SidebarActionProps) {
             </Button>
           </TooltipTrigger>
         </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              className="h-6 w-6 p-0 hover:bg-background"
+              disabled={isRemovePending}
+              onClick={() => setDeleteDialogOpen(true)}
+            >
+              <IconTrash />
+              <span className="sr-only">Delete</span>
+            </Button>
+          </TooltipTrigger>
+        </Tooltip>
       </div>
       <Dialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
         <DialogContent>
@@ -80,17 +98,55 @@ export function SidebarActions({ chat, removeChat }: SidebarActionProps) {
               {formatDate(chat.createdAt)} · {chat.messages.length} messages
             </div>
           </div>
+          <DialogFooter className="items-center">
+            {chat.sharePath && (
+              <Link
+                href={chat.sharePath}
+                className={cn(
+                  badgeVariants({ variant: "secondary" }),
+                  "mr-auto"
+                )}
+                target="_blank"
+              >
+                <IconUsers className="mr-2" />
+                {chat.sharePath}
+              </Link>
+            )}
+
+            <Button
+              disabled={isSharePending}
+              onClick={() => {
+                /* @ts-ignore */
+                startShareTransition(async () => {
+                  if (chat.sharePath) {
+                    await new Promise((resolve) => setTimeout(resolve, 500));
+                    copyShareLink(chat);
+                    return;
+                  }
+
+                  const result = await shareChat(chat);
+
+                  if (result && "error" in result) {
+                    toast.error(result?.error);
+                    return;
+                  }
+
+                  copyShareLink(result);
+                });
+              }}
+            >
+              {isSharePending ? (
+                <>
+                  <IconSpinner className="mr-2 animate-spin" />
+                  Copying...
+                </>
+              ) : (
+                <>Copy link</>
+              )}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
   );
-}
-
-export function formatDate(input: string | number | Date): string {
-  const date = new Date(input);
-  return date.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
 }
