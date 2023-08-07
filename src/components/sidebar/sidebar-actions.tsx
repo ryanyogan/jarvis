@@ -7,6 +7,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../ui/alert-dialog";
 import { badgeVariants } from "../ui/badge";
 import { Button } from "../ui/button";
 import {
@@ -147,6 +157,48 @@ export function SidebarActions({ chat, removeChat }: SidebarActionProps) {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutley sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will delete your chat message and remove your data from our
+              servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isRemovePending}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              disabled={isRemovePending}
+              onClick={(event) => {
+                event.preventDefault();
+                /* @ts-ignore */
+                startRemoveTransition(async () => {
+                  const result = await removeChat({
+                    id: chat.id,
+                    path: chat.path,
+                  });
+
+                  if (result && "error" in result) {
+                    toast.error(result.error);
+                    return;
+                  }
+
+                  setDeleteDialogOpen(false);
+                  router.refresh();
+                  router.push("/");
+                  toast.success("Chat Deleted");
+                });
+              }}
+            >
+              {isRemovePending && <IconSpinner className="mr-2 animate-spin" />}
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

@@ -49,13 +49,13 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
     };
   }
 
-  const uid = await kv.hget<string>(`chat:${id}`, "userId");
+  // const uid = await kv.hget<string>(`chat:${id}`, "userId");
 
-  if (uid !== session?.user?.sub) {
-    return {
-      error: "Unauthorized",
-    };
-  }
+  // if (uid !== session?.user?.sub) {
+  //   return {
+  //     error: "Unauthorized",
+  //   };
+  // }
 
   await kv.del(`chat:${id}`);
   await kv.zrem(`user:chat:${session.user.sub}`, `chat:${id}`);
