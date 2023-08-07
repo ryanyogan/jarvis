@@ -142,6 +142,7 @@ export function SidebarActions({ chat, removeChat }: SidebarActionProps) {
                   }
 
                   copyShareLink(result);
+                  router.refresh();
                 });
               }}
             >
