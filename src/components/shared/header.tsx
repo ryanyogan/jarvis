@@ -20,6 +20,7 @@ export default async function Header() {
         {session?.user ? (
           <Sidebar>
             <Suspense fallback={<div className="flex-1 overflow-auto" />}>
+              {/* @ts-ignore */}
               <SidebarList userId={session?.user?.sub} />
             </Suspense>
             <SidebarFooter>
