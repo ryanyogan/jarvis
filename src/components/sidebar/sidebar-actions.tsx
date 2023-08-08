@@ -126,23 +126,25 @@ export function SidebarActions({ chat, removeChat }: SidebarActionProps) {
             <Button
               disabled={isSharePending}
               onClick={() => {
-                /* @ts-ignore */
-                startShareTransition(async () => {
+                startShareTransition(() => {
                   if (chat.sharePath) {
-                    await new Promise((resolve) => setTimeout(resolve, 500));
-                    copyShareLink(chat);
+                    new Promise((resolve) => setTimeout(resolve, 500)).then(
+                      () => {
+                        copyShareLink(chat);
+                      }
+                    );
                     return;
                   }
 
-                  const result = await shareChat(chat);
+                  shareChat(chat).then((result) => {
+                    if (result && "error" in result) {
+                      toast.error(result?.error);
+                      return;
+                    }
 
-                  if (result && "error" in result) {
-                    toast.error(result?.error);
-                    return;
-                  }
-
-                  copyShareLink(result);
-                  router.refresh();
+                    copyShareLink(result);
+                    router.refresh();
+                  });
                 });
               }}
             >
