@@ -91,7 +91,7 @@ export async function clearChats() {
   await pipeline.exec();
 
   revalidatePath("/");
-  return redirect("/");
+  return revalidatePath("/");
 }
 
 export async function getSharedChat(id: string) {

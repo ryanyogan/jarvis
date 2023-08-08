@@ -1,3 +1,4 @@
+import { clearChats } from "@/actions";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -7,6 +8,7 @@ import { SidebarFooter } from "../sidebar/sidebar-footer";
 import { SidebarList } from "../sidebar/sidebar-list";
 import { buttonVariants } from "../ui/button";
 import { IconGitHub, IconNextChat, IconSeparator } from "../ui/icons";
+import { ClearHistory } from "./clear-history";
 import LoginButton from "./login-button";
 import { ThemeToggle } from "./theme-toggle";
 import UserMenu from "./user-menu";
@@ -25,6 +27,7 @@ export default async function Header() {
             </Suspense>
             <SidebarFooter>
               <ThemeToggle />
+              <ClearHistory clearChats={clearChats} />
             </SidebarFooter>
           </Sidebar>
         ) : (
