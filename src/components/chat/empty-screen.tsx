@@ -13,15 +13,7 @@ const exampleMessages = [
   },
   {
     heading: "What sounds good for dinner",
-    message: `Please help me with dinner, a family of four, create some fun in our lives with a new meal idea.  Pleae either include highly-detailed step by step instructions for the receipe, including purchasing of materials`,
-  },
-  {
-    heading: "What to do today",
-    message: `I live in St. Louis, MO, we have two young boys, help us find something awesome to do today!`,
-  },
-  {
-    heading: "Draft an email",
-    message: `Draft an email to my boss about the following: \nI Quit!`,
+    message: `Please help me with dinner, create some fun in our lives with a new meal idea.  Pleae either include highly-detailed step by step instructions for the receipe, including purchasing of materials`,
   },
 ];
 
