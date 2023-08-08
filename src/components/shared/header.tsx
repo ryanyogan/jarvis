@@ -1,13 +1,12 @@
 import { clearChats } from "@/actions";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
+import { PiCpuLight } from "react-icons/pi";
 import { auth } from "../../../auth";
 import { Sidebar } from "../sidebar/sidebar";
 import { SidebarFooter } from "../sidebar/sidebar-footer";
 import { SidebarList } from "../sidebar/sidebar-list";
-import { buttonVariants } from "../ui/button";
-import { IconGitHub, IconNextChat, IconSeparator } from "../ui/icons";
+import { IconSeparator } from "../ui/icons";
 import { ClearHistory } from "./clear-history";
 import LoginButton from "./login-button";
 import { ThemeToggle } from "./theme-toggle";
@@ -32,12 +31,12 @@ export default async function Header() {
           </Sidebar>
         ) : (
           <Link href="/" target="_blank" rel="nofollow">
-            <IconNextChat className="w-6 h-6 mr-2 dark:hidden" inverted />
-            <IconNextChat className="hidden w-6 h-6 mr-2 dark:block" />
+            <PiCpuLight className="w-6 h-6 mr-2 dark:hidden text-black" />
+            <PiCpuLight className="hidden w-6 h-6 mr-2 dark:block text-white" />
           </Link>
         )}
 
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <IconSeparator className="w-6 h-6 text-muted-foreground/50" />
           {session?.user ? (
             <UserMenu user={session.user} />
@@ -45,18 +44,6 @@ export default async function Header() {
             <LoginButton text="Login with Google" />
           )}
         </div>
-      </div>
-
-      <div className="flex items-center justify-end space-x-2">
-        <a
-          target="_blank"
-          href="https://github.com/ryanyogan/jarvis"
-          rel="noopener noreferrer"
-          className={cn(buttonVariants({ variant: "outline" }))}
-        >
-          <IconGitHub />
-          <span className="hidden ml-2 md:flex">GitHub</span>
-        </a>
       </div>
     </header>
   );

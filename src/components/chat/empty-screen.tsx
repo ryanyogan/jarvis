@@ -2,7 +2,7 @@ import { UseChatHelpers } from "ai/react";
 import { Button } from "../ui/button";
 import { IconArrowRight } from "../ui/icons";
 
-const exampleMessages = [
+export const exampleMessages = [
   {
     heading: "Find a good movie",
     message: `Help me find 3 movies to watch, please select each movie with a high rating, of either Comedy, Action, Drama or Thriller made from 1990 to 2023 in the United States`,
