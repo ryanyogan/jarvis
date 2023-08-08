@@ -1,14 +1,23 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import { IconMoon, IconSun } from "../ui/icons";
 
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [_, startTransition] = useTransition();
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <Button
