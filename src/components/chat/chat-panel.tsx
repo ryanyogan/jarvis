@@ -5,7 +5,7 @@ import { PromptForm } from "../forms/prompt-form";
 import { ButtonScrollToBottom } from "../shared/button-scroll-to-bottom";
 import { FooterText } from "../shared/footer";
 import { Button } from "../ui/button";
-import { IconRefresh, IconShare, IconStop } from "../ui/icons";
+import { IconRefresh, IconStop } from "../ui/icons";
 
 export interface ChatPanelProps
   extends Pick<
@@ -57,14 +57,6 @@ export default function ChatPanel({
               </Button>
             )
           )}
-          <Button
-            variant="outline"
-            onClick={() => {}}
-            className="bg-background"
-          >
-            <IconShare className="mr-2" />
-            Share Link
-          </Button>
         </div>
 
         <div className="space-y-4 border-t bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
