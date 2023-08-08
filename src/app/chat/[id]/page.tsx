@@ -1,4 +1,3 @@
-// import { getChat } from "@/actions";
 import { getChat } from "@/actions";
 import Chat from "@/components/chat/chat";
 import { Metadata } from "next";
@@ -7,6 +6,7 @@ import { auth } from "../../../../auth";
 
 export const runtime = "edge";
 export const preferredRegion = "home";
+export const dynamic = "force-dynamic";
 
 export interface ChatPageProps {
   params: {
@@ -26,7 +26,7 @@ export async function generateMetadata({
   const chat = await getChat(params.id, session.user.sub);
 
   return {
-    title: chat?.title.toString().slice(0, 50) ?? "Chat",
+    title: chat?.title.slice(0, 50) ?? "Chat",
   };
 }
 

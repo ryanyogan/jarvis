@@ -2,6 +2,7 @@ import { getSharedChat } from "@/actions";
 import { ChatList } from "@/components/chat/chat-list";
 import { FooterText } from "@/components/shared/footer";
 import { formatDate } from "@/lib/utils";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const runtime = "edge";
@@ -10,6 +11,16 @@ export const preferredRegion = "home";
 interface SharePageProps {
   params: {
     id: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: SharePageProps): Promise<Metadata> {
+  const chat = await getSharedChat(params.id);
+
+  return {
+    title: chat?.title.slice(0, 50) ?? "",
   };
 }
 
