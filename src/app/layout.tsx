@@ -2,6 +2,7 @@ import Providers from "@/components/providers/providers";
 import Header from "@/components/shared/header";
 import { fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -34,6 +35,7 @@ export default function RootLayout({
             <main className="flex flex-col flex-1 bg-muted/50">{children}</main>
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
